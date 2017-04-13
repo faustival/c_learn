@@ -26,7 +26,7 @@ int cat_wc()
     int trigger;
     long nchar, nline, nword;
 
-    nchar = nline = 0;
+    nchar = nline = nword = 0;
     trigger = off;
     while ( (c = getchar()) != EOF )
     {
