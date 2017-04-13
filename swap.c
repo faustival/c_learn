@@ -24,6 +24,8 @@ void main()
     printf("After swap, \n");
     printf("a = %d\n",a);
     printf("b = %d\n",b);
+    printf("&a = %d\n",&a);
+    printf("&b = %d\n",&b);
 }
 
 int swap( int *a, int *b )
