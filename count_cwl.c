@@ -12,15 +12,14 @@
 #define on 1
 #define off 0
 
-int cat_wc();
+void cat_wc();
 
-int main()
+void main()
 {
     cat_wc();
-    return 0;
 }
 
-int cat_wc()
+void cat_wc()
 { // could be a simple version of Linux cat, wc
     int c;
     int trigger;

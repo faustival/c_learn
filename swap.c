@@ -5,8 +5,8 @@
 
 #include <stdio.h>
 
-int swap( int *a, int *b );
-//int swap_WRONG( int a, int b );
+void swap( int *a, int *b );
+//void swap_WRONG( int a, int b );
 
 void main()
 {
@@ -28,7 +28,7 @@ void main()
     printf("&b = %d\n",&b);
 }
 
-int swap( int *a, int *b )
+void swap( int *a, int *b )
 {
     // Correct way 
     int temp;
@@ -36,11 +36,9 @@ int swap( int *a, int *b )
     temp = *a;
     *a = *b;
     *b = temp;
-
-    return 0;
 }
 
-int swap_WRONG( int a, int b )
+void swap_WRONG( int a, int b )
 {
     // WRONG way 
     int temp;
@@ -54,8 +52,6 @@ int swap_WRONG( int a, int b )
     temp = a;
     a = b;
     b = temp;
-
-    return 0;
 }
 
 
