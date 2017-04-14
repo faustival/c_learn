@@ -5,6 +5,8 @@
  *     19  -12 8  -1 8
  *     end
  *
+ * Still get buggy for pattern like "19e".
+ *
  * and test with:
  *     getint.exc < int_inpf.log
  */
@@ -26,7 +28,8 @@ void main()
     int i,  arry[SIZE];
     int n_int = 0;
     for (i=0; i < SIZE && getint(&arry[i], &n_int) != EOF; i++)
-        ; 
+        printf("i = %d, arry[i] = %d, buf = %s\n", i, arry[i], buf);
+    n_int = i;
     printf("%d integers obtained:\n", n_int);
     for (i=0; i < n_int; i++)
     {
@@ -43,7 +46,7 @@ int getint(int *pn, int *n_int)
     if (!isdigit(c) && c != EOF && c != '+' && c != '-')
     {
         ungetch(c);
-        return 0;
+        return -1;  // better match EOF = -1 here
     }
     sign = (c == '-') ? -1 : 1;
     if (c == '+' || c == '-')
