@@ -29,14 +29,18 @@ FILE *inpf;
 
 int main()
 {
-    int i,  arry[SIZE];
+    int i, stat, arry[SIZE];
     int n_int = 0;
-    char inpfname[] = "int_inpf.log";
-    inpf = fopen(inpfname, "r");
-    //inpf = stdin;
+    //char inpfname[] = "int_inpf.log";
+    //inpf = fopen(inpfname, "r");
+    inpf = stdin;
 
-    for (i=0; i < SIZE && getint(&arry[i], &n_int, inpf) != EOF; i++)
-        printf("i = %d, arry[i] = %d, buf = %s\n", i, arry[i], buf);
+    for (i=0; i < SIZE && (stat = getint(&arry[i], &n_int, inpf)) != EOF; i++)
+    {
+        if (stat == 0) // for the strange char in getint()
+            i--;
+        //printf("i = %d, arry[i] = %d, buf = %s\n", i, arry[i], buf);
+    }
     n_int = i;
     fclose(inpf);
     printf("%d integers obtained:\n", n_int);
@@ -50,20 +54,29 @@ int getint(int *pn, int *n_int, FILE *inpf)
 {
     int c, sign;
 
+    /* Expect before integer digits */
     while(isspace(c = getch(inpf)))
         ;
     if (!isdigit(c) && c != EOF && c != '+' && c != '-')
     {
-        //ungetch(c);
-        return -1;  // better match EOF = -1 here
+        //ungetch(c);  // what is this used for in K&R ?
+        return 0; //EOF;  
+        /* return 0 for outer call to determine
+         * better return EOF for the strange chars
+         */
     }
+    /* Expect beginning reading */
     sign = (c == '-') ? -1 : 1;
     if (c == '+' || c == '-')
         c = getch(inpf);
     for (*pn = 0; isdigit(c); c = getch(inpf))
         *pn = 10 * *pn + (c - '0');
+    /* Pass back valid value */
     *pn *= sign;
     ++(*n_int);
+    /* Expect to be invalid char after integer,
+     * Push back 
+     */
     if (c != EOF)
         ungetch(c);
     return c;
