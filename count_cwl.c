@@ -14,7 +14,7 @@
 
 void cat_wc();
 
-void main()
+int main()
 {
     cat_wc();
 }

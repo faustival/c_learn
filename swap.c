@@ -8,7 +8,7 @@
 void swap( int *a, int *b );
 //void swap_WRONG( int a, int b );
 
-void main()
+int main()
 {
     int a = 1;
     int b = 2;

@@ -8,7 +8,7 @@
 void ptr_init();
 void ptr_null();
 
-void main()
+int main()
 {
     ptr_init();
 }

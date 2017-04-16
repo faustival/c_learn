@@ -27,7 +27,7 @@ char buf[BUFSIZE];
 int bufp = 0;
 FILE *inpf;
 
-void main()
+int main()
 {
     int i,  arry[SIZE];
     int n_int = 0;
