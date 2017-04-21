@@ -8,35 +8,37 @@
 
 #include <stdio.h>
 
-int assign(int *a);
-int print_result(int *a);
+int assign(int *a, int na);
+int print_result(int *a, int na);
 
 int main()
 {
-    int a[10];
+    int a[10], na;
 
-    assign(a);
-    print_result(a);
+    na = sizeof(a)/sizeof(a[0]);
+
+    assign(a, na);
+    print_result(a, na);
 }
 
-int assign(int *a)
+int assign(int *a, int na)
 {
     int* pa = a;
+    int i;
 
-    a[0] = 0;
-    while (pa < (a+9)) // use pa is easy to get out of array boundary
+    for (i=0; i < na; i++) // pa is allowed to get out of array boundary
     {
+        *pa = i;
+        printf("a[%d], *pa = %d\n", i, *pa );
         pa++;
-        *pa = *(pa-1) + 1;
-        printf("pa = %d, *pa = %d, *(pa-1) = %d\n", pa, *pa, *(pa-1));
     }
 }
 
-int print_result(int *a)
+int print_result(int *a, int na)
 {
     int i;
 
-    for (i=0; i<10; i++) // i<11 to get out is allowed and dangerous
+    for (i=0; i < na; i++) // i<11 to get out is allowed and dangerous
         printf("a[%d] = %d\n", i, a[i]);
 }
 
