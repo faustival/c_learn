@@ -21,9 +21,8 @@ int main()
     print_result(a, na);
 }
 
-int assign(int *a, int na)
+int assign(int *pa, int na) // arrays are passed in by pointers
 {
-    int* pa = a;
     int i;
 
     for (i=0; i < na; i++) // pa is allowed to get out of array boundary
