@@ -21,8 +21,6 @@ int main()
 
 int putstr(char *s)
 {
-    int i;
-
     printf("Loop by pointer:\n");
 
     while (*s != '\0') 
