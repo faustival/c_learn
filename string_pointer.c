@@ -23,11 +23,10 @@ int putstr(char *s)
 {
     printf("Loop by pointer:\n");
 
-    while (*s != '\0') 
+    for ( ; *s != '\0'; s++ ) 
     {
         putchar(*s);
         printf("\n");
-        s++;
     }
 }
 
