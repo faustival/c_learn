@@ -27,7 +27,7 @@ int putstr(char *s)
     {
         putchar(*s);
         printf("\n");
-        *s++;
+        s++;
     }
 }
 
