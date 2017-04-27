@@ -1,5 +1,5 @@
 /*
- * K&R Sec. 5.4
+ * K&R Sec. 5.4, allocation of char array by pointer arithmetic
  *
  * Modified to be a LIFO implementation of a toy text editor.
  */
@@ -10,37 +10,47 @@
 
 
 static char text[textsize];
+static char buf[20];
 static char *ptr_eof = text;
 static char *ptr_eof_old = text;
 
+int get_modebuf();
 void print_options();
 void write_words();
 void print_text();
 
 int main()
 {
-    int c, ichar;
-    char buf[100];
-    char *s;
+    int c;
 
     print_options();
-    while(1)
+    while ( (c = get_modebuf()) != 'q' )
     {
-        /* read keywords */ 
-        for ( s = buf ; (c = getchar()) != '\n' ; s++ )
-            *s = c;
-        *s = '\0';
-        /* entering corresponding edit mode */
-        if ( buf[0] == 'h' )
-            print_options();
-        else if ( buf[0] == 'a' )
-            write_words();
-        else if ( buf[0] == 'p' )
-            print_text();
-        else if ( buf[0] == 'q' )
-            break;
+        switch (c)
+        {
+            case 'h':
+                print_options();
+                break;
+            case 'a':
+                write_words();
+                break;
+            case 'p':
+                print_text();
+                break;
+        }
     }
     print_text();
+}
+
+int get_modebuf() /* appropriatly use scanf() instead */
+{
+    char *s;
+    int c;
+
+    for ( s = buf ; (c = getchar()) != '\n' ; s++ )
+        *s = c;
+    *s = '\0';
+    return buf[0];
 }
 
 void print_options()
@@ -58,13 +68,14 @@ void print_options()
 void write_words()
 {
     int c;
-    printf("Press Ctrl-D to quit append mode.\n \n");
+    printf("\n Press Ctrl-D to quit append mode.\n");
     ptr_eof_old = ptr_eof;
     while ( (c = getchar()) != EOF )
     {
         *ptr_eof = c;
         ptr_eof++;
     }
+    printf("\n Meet EOF, type next operation. \n");
 }
 
 void undo_write()
