@@ -5,6 +5,8 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 #define textsize 10000
 
@@ -18,6 +20,8 @@ int get_modebuf();
 void print_options();
 void write_words();
 void print_text();
+void del_str();
+int first_int();
 
 int main()
 {
@@ -33,6 +37,9 @@ int main()
                 break;
             case 'a':
                 write_words();
+                break;
+            case 'd':
+                del_str( first_int() );
                 break;
             case 'p':
                 print_text();
@@ -85,11 +92,34 @@ void undo_write()
 
 void del_str(int n)
 {
+    printf( "Delete %d characters.\n", n);
     ptr_eof -= n;
+    *ptr_eof = '\0';
 }
 
 void print_text()
 {
     printf(text);
+}
+
+int first_int()
+/* get the first int (continuous digits) from string */
+{
+    char *s;
+    char *s_int;
+    char intbuf[20];
+    int n;
+
+    s_int = intbuf;
+    for ( s = buf ; !isdigit(*s) ; s++ )
+        continue;
+    for ( s_int = intbuf ; isdigit(*s) ; s++ )
+    {
+        *s_int = *s;
+        s_int++;
+    }
+    *s_int = '\0'; 
+    n = atoi(intbuf);
+    return n;
 }
 
